@@ -1,0 +1,29 @@
+[
+  {
+    "Name": "LinkedIn",
+    "Domain": "linkedin.com",
+    "BreachDate": "2012-05-01",
+    "DataClasses": [
+      "Emails",
+      "Passwords"
+    ],
+    "Description": "LinkedIn password leak...",
+    "AffectedEmails": [
+      "alice@example.com"
+    ]
+  },
+  {
+    "Name": "Adobe",
+    "Domain": "adobe.com",
+    "BreachDate": "2013-10-01",
+    "DataClasses": [
+      "Emails",
+      "PasswordHints",
+      "Passwords"
+    ],
+    "Description": "Adobe database leak...",
+    "AffectedEmails": [
+      "alice@example.com"
+    ]
+  }
+]
