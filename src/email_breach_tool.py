@@ -1,44 +1,90 @@
 """
-Menu-driven CLI wrapper for email breach functions.
+Wrapper between GUI and modules/email_breach.py
+Ensures the GUI can call consistent functions.
 """
 
+import os
+import json
 from modules import email_breach
 
-def menu():
-    last_report = None
-    while True:
-        print("\n=== Email Breach Tool ===")
-        print("1) Check email (Local DB)")
-        print("2) Check email (LeakCheck API)")
-        print("3) Check password (HIBP Pwned Passwords)")
-        print("4) Export last report")
-        print("0) Exit")
-        choice = input("Choose: ").strip()
+BASE_DIR = os.path.dirname(os.path.dirname(__file__)) or os.getcwd()
+DATA_DIR = os.path.join(BASE_DIR, "data")
+os.makedirs(DATA_DIR, exist_ok=True)
 
-        if choice == "0":
-            break
-        elif choice in ("1", "2"):
-            email = input("Enter email: ").strip()
-            provider = "local" if choice == "1" else "leakcheck"
-            rpt, breaches, err = email_breach.run_email_breach(email, provider=provider, force_refresh=True)
-            print(rpt)
-            last_report = rpt
-        elif choice == "3":
-            pwd = input("Enter password: ").strip()
-            found, count, err = email_breach.check_pwned_password(pwd)
-            if err:
-                print("Error:", err)
-            elif found:
-                print(f"Password found in {count} breaches.")
-            else:
-                print("Password not found in breaches.")
-        elif choice == "4":
-            if not last_report:
-                print("No report to export.")
-                continue
-            path = input("Save path: ").strip() or "breach_report.txt"
-            ok = email_breach.export_report(last_report, path)
-            print("Exported:", ok, "to", path)
+SETTINGS_PATH = os.path.join(DATA_DIR, "email_breach_settings.json")
 
-if __name__ == "__main__":
-    menu()
+
+
+
+# ----------------------------
+# API Key Management
+# ----------------------------
+def _load_settings():
+    print(f"[DEBUG] Loading settings from: {SETTINGS_PATH}")
+    if os.path.exists(SETTINGS_PATH):
+        try:
+            with open(SETTINGS_PATH, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                print(f"[DEBUG] Settings content: {data}")
+                return data
+        except Exception as e:
+            print(f"[DEBUG] Failed to load settings: {e}")
+            return {}
+    return {}
+
+
+def _save_settings(data):
+    try:
+        with open(SETTINGS_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+        print(f"[DEBUG] Saved settings to {SETTINGS_PATH}: {data}")
+    except Exception as e:
+        print(f"[email_breach_tool] Failed to save settings: {e}")
+
+
+def get_api_key(provider: str):
+    data = _load_settings()
+    return data.get("api_keys", {}).get(provider)
+
+
+def set_api_key(provider: str, key: str):
+    data = _load_settings()
+    if "api_keys" not in data:
+        data["api_keys"] = {}
+    if key:
+        data["api_keys"][provider] = key.strip()
+    else:
+        data["api_keys"].pop(provider, None)
+    _save_settings(data)
+    print(f"[DEBUG] set_api_key called with provider='{provider}', key='{key}'")
+
+
+
+# ----------------------------
+# Core Functions
+# ----------------------------
+def run_email_breach(email: str, provider="local", force_refresh=False):
+    """
+    Wrapper around modules.email_breach.run_email_breach
+    Returns (report_text, breaches, error)
+    """
+    try:
+        report, breaches, error = email_breach.run_email_breach(
+            email=email,
+            provider=provider,
+            force_refresh=force_refresh
+        )
+        return report, breaches, error
+    except Exception as e:
+        return f"[email_breach_tool] Error: {e}", [], str(e)
+
+
+def check_pwned_password(password: str):
+    """
+    Wrapper around modules.email_breach.check_pwned_password
+    Returns (found, count, error)
+    """
+    try:
+        return email_breach.check_pwned_password(password)
+    except Exception as e:
+        return False, 0, str(e)

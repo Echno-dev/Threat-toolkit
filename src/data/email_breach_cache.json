@@ -1,0 +1,373 @@
+{
+  "xon:dahakeaditya393@gmail.com": {
+    "ts": 1758701154,
+    "report": "Email: dahakeaditya393@gmail.com\nBreached: YES\nTotal breaches found: 2\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: LOW\n\n[xon] breaches: 2\n - ClickASnap (?)\n - MovieBoxPro (?)\n\nRecommendations:\n - Monitor accounts and consider changing passwords.\n - Use unique passwords and enable 2FA where possible.",
+    "breaches": [
+      {
+        "Name": "ClickASnap",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "MovieBoxPro",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      }
+    ]
+  },
+  "xon:alice@example.com": {
+    "ts": 1758785236,
+    "report": "Email: alice@example.com\nBreached: YES\nTotal breaches found: 27\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: LOW\n\n[xon] breaches: 27\n - Collection-1 (?)\n - Onverse (?)\n - Sitepoint (?)\n - i-Dressup (?)\n - IIMjobs (?)\n - DuelingNetwork (?)\n - CashCrate (?)\n - Lifeboat (?)\n - DailyQuiz (?)\n - R2games (?)\n - Animoto (?)\n - Mathway (?)\n - Nitro (?)\n - LinkedIn (?)\n - Zynga (?)\n - Twitter-Scraped (?)\n - Cit0day (?)\n - Wattpad (?)\n - AntiPublicCombo (?)\n - Verifications (?)\n - Kaneva (?)\n - Liker (?)\n - Yam (?)\n - CouponMom (?)\n - Trello (?)\n - Alleged-SOCRadar (?)\n - Twitter (?)\n\nRecommendations:\n - Monitor accounts and consider changing passwords.\n - Use unique passwords and enable 2FA where possible.",
+    "breaches": [
+      {
+        "Name": "Collection-1",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Onverse",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Sitepoint",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "i-Dressup",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "IIMjobs",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "DuelingNetwork",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "CashCrate",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Lifeboat",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "DailyQuiz",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "R2games",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Animoto",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Mathway",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Nitro",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "LinkedIn",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Zynga",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Twitter-Scraped",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Cit0day",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Wattpad",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "AntiPublicCombo",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Verifications",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Kaneva",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Liker",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Yam",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "CouponMom",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Trello",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Alleged-SOCRadar",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      },
+      {
+        "Name": "Twitter",
+        "Domain": null,
+        "BreachDate": null,
+        "DataClasses": [],
+        "Description": ""
+      }
+    ]
+  },
+  "local:alice@example.com": {
+    "ts": 1758698939,
+    "report": "Email: alice@example.com\nBreached: YES\nTotal breaches found: 2\nFirst seen (year): 2012\nMost recent (year): 2013\nSeverity: CRITICAL\n\n[local] breaches: 2\n - LinkedIn (2012)\n    \u2022 Data exposed: Emails, Passwords\n    \u2022 Description: LinkedIn password leak...\n - Adobe (2013)\n    \u2022 Data exposed: Emails, PasswordHints, Passwords\n    \u2022 Description: Adobe database leak...\n\nRecommendations:\n - Change passwords for breached services immediately.\n - If you reused passwords, change them across other services.\n - Enable two-factor authentication (2FA) for important accounts.\n - Use a password manager to generate and store unique passwords.\n - Consider a credit freeze / monitoring if financial data was exposed.",
+    "breaches": [
+      {
+        "Name": "LinkedIn",
+        "Domain": "linkedin.com",
+        "BreachDate": "2012-05-01",
+        "AddedDate": "2016-05-18",
+        "PwnCount": 164000000,
+        "DataClasses": [
+          "Emails",
+          "Passwords"
+        ],
+        "Description": "LinkedIn password leak...",
+        "AffectedEmails": [
+          "alice@example.com"
+        ]
+      },
+      {
+        "Name": "Adobe",
+        "Domain": "adobe.com",
+        "BreachDate": "2013-10-01",
+        "AddedDate": "2013-10-04",
+        "PwnCount": 152000000,
+        "DataClasses": [
+          "Emails",
+          "PasswordHints",
+          "Passwords"
+        ],
+        "Description": "Adobe database leak...",
+        "AffectedEmails": [
+          "alice@example.com"
+        ]
+      }
+    ]
+  },
+  "leakcheck:alice@example.com": {
+    "ts": 1758699143,
+    "report": "Email: alice@example.com\nBreached: YES\nTotal breaches found: 2\nFirst seen (year): 2012\nMost recent (year): 2013\nSeverity: CRITICAL\n\n[local] error: status 403 text: {\"success\": false, \"error\": \"Active plan required\"}",
+    "breaches": [
+      {
+        "Name": "LinkedIn",
+        "Domain": "linkedin.com",
+        "BreachDate": "2012-05-01",
+        "AddedDate": "2016-05-18",
+        "PwnCount": 164000000,
+        "DataClasses": [
+          "Emails",
+          "Passwords"
+        ],
+        "Description": "LinkedIn password leak...",
+        "AffectedEmails": [
+          "alice@example.com"
+        ]
+      },
+      {
+        "Name": "Adobe",
+        "Domain": "adobe.com",
+        "BreachDate": "2013-10-01",
+        "AddedDate": "2013-10-04",
+        "PwnCount": 152000000,
+        "DataClasses": [
+          "Emails",
+          "PasswordHints",
+          "Passwords"
+        ],
+        "Description": "Adobe database leak...",
+        "AffectedEmails": [
+          "alice@example.com"
+        ]
+      }
+    ]
+  },
+  "breachdirectory:alice@example.com": {
+    "ts": 1758699151,
+    "report": "Email: alice@example.com\nBreached: YES\nTotal breaches found: 2\nFirst seen (year): 2012\nMost recent (year): 2013\nSeverity: CRITICAL\n\n[local] error: status 0 text: HTTPSConnectionPool(host='api.breachdirectory.org', port=443): Read timed out. (read timeout=10)",
+    "breaches": [
+      {
+        "Name": "LinkedIn",
+        "Domain": "linkedin.com",
+        "BreachDate": "2012-05-01",
+        "AddedDate": "2016-05-18",
+        "PwnCount": 164000000,
+        "DataClasses": [
+          "Emails",
+          "Passwords"
+        ],
+        "Description": "LinkedIn password leak...",
+        "AffectedEmails": [
+          "alice@example.com"
+        ]
+      },
+      {
+        "Name": "Adobe",
+        "Domain": "adobe.com",
+        "BreachDate": "2013-10-01",
+        "AddedDate": "2013-10-04",
+        "PwnCount": 152000000,
+        "DataClasses": [
+          "Emails",
+          "PasswordHints",
+          "Passwords"
+        ],
+        "Description": "Adobe database leak...",
+        "AffectedEmails": [
+          "alice@example.com"
+        ]
+      }
+    ]
+  },
+  "local:shalini.kumari@ghrua.edu.in": {
+    "ts": 1758701059,
+    "report": "Email: shalini.kumari@ghrua.edu.in\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\nRecommendations:\n - No known breaches for this email. Continue monitoring and use strong, unique passwords.",
+    "breaches": []
+  },
+  "xon:shalini.kumari@ghrua.edu.in": {
+    "ts": 1758701069,
+    "report": "Email: shalini.kumari@ghrua.edu.in\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\nRecommendations:\n - No known breaches for this email. Continue monitoring and use strong, unique passwords.",
+    "breaches": []
+  },
+  "xon:shalinidas281@gmail.com": {
+    "ts": 1758701093,
+    "report": "Email: shalinidas281@gmail.com\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\nRecommendations:\n - No known breaches for this email. Continue monitoring and use strong, unique passwords.",
+    "breaches": []
+  },
+  "leakcheck:shalinidas281@gmail.com": {
+    "ts": 1758701106,
+    "report": "Email: shalinidas281@gmail.com\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\n[local] error: status 403 text: {\"success\": false, \"error\": \"Active plan required\"}",
+    "breaches": []
+  },
+  "breachdirectory:shalinidas281@gmail.com": {
+    "ts": 1758701118,
+    "report": "Email: shalinidas281@gmail.com\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\nRecommendations:\n - No known breaches for this email. Continue monitoring and use strong, unique passwords.",
+    "breaches": []
+  },
+  "xon:learnrupesh@gmail.com": {
+    "ts": 1758785159,
+    "report": "Email: learnrupesh@gmail.com\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\nRecommendations:\n - No known breaches for this email. Continue monitoring and use strong, unique passwords.",
+    "breaches": []
+  },
+  "local:learnrupesh@gmail.com": {
+    "ts": 1758784725,
+    "report": "Email: learnrupesh@gmail.com\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\nRecommendations:\n - No known breaches for this email. Continue monitoring and use strong, unique passwords.",
+    "breaches": []
+  },
+  "leakcheck:learnrupesh@gmail.com": {
+    "ts": 1758784727,
+    "report": "Email: learnrupesh@gmail.com\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\n[local] error: status 403 text: {\"success\": false, \"error\": \"Active plan required\"}",
+    "breaches": []
+  },
+  "breachdirectory:learnrupesh@gmail.com": {
+    "ts": 1758784732,
+    "report": "Email: learnrupesh@gmail.com\nBreached: NO\nTotal breaches found: 0\nFirst seen (year): N/A\nMost recent (year): N/A\nSeverity: NONE\n\n[local] error: status 429 text: {\"message\":\"You have exceeded the MONTHLY quota for Requests on your current plan, BASIC. Upgrade your plan at https:\\/\\/rapidapi.com\\/rohan-patra\\/api\\/breachdirectory\"}",
+    "breaches": []
+  }
+}

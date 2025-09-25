@@ -190,6 +190,15 @@ class NestedRoundedBox:
             # Bind click
             self.canvas.tag_bind(tag, "<Button-1>", lambda e, name=tag: self.on_button_click(name))
 
+        # Store structured logs for export
+            self.tool_logs = {
+                "Password Checker": [],
+                "Network Scanner": [],
+                "Port Scanner": [],
+                "Email Breach Detector": []
+            }
+
+
         # --- Result & Logs Label ---
         logs_icon_path = os.path.join(icon_path, "logs.png")
         if os.path.exists(logs_icon_path):
@@ -197,7 +206,7 @@ class NestedRoundedBox:
             self.logs_icon = ImageTk.PhotoImage(logs_img)
             self.canvas.create_image(45, 330, image=self.logs_icon, anchor="w")
         result_font = tkfont.Font(family="Arial", size=10, weight="bold")
-        self.canvas.create_text(85, 330, text="Result & Logs", font=result_font, fill="black", anchor="w")
+        self.canvas.create_text(70, 330, text="Result & Logs", font=result_font, fill="black", anchor="w")
 
         # --- Result & Logs Container ---
         box_x1, box_y1 = 45, 345
@@ -250,30 +259,33 @@ class NestedRoundedBox:
         sys.stdout = TextRedirector(self.log_box, "stdout")
         sys.stderr = TextRedirector(self.log_box, "stderr")
 
+
     # --- Password Checker Popup ---
     def open_password_checker(self):
-        self.log_message("[UI] Opened Password Strength Checker window")
+        self.log_message("[UI] Opened Password Tools window")
         win = tk.Toplevel(self.root)
-        win.title("Password Strength Checker")
-        win.geometry("420x280")
+        win.title("Password Tools (Strength & Breach Check)")
+        win.geometry("500x520")  # 🔹 Increased height to fit both blocks + buttons
         win.resizable(False, False)
         win.lift()
         win.focus_force()
 
-        lbl = tk.Label(win, text="Enter password to evaluate:", anchor="w")
-        lbl.pack(pady=(12, 4))
-        pw_entry = tk.Entry(win, show="*", width=36)
-        pw_entry.pack()
+        # --- Block 1: Password Strength Checker ---
+        frame_strength = tk.LabelFrame(win, text="Password Strength Checker", padx=10, pady=10)
+        frame_strength.pack(fill="x", padx=10, pady=(10, 5))
 
-        output = tk.Text(win, height=10, width=52, state="disabled", bg="#f7f7f7")
-        output.pack(pady=(8, 8))
+        tk.Label(frame_strength, text="Enter password to evaluate:").pack(anchor="w")
+        pw_entry_strength = tk.Entry(frame_strength, show="*", width=36)
+        pw_entry_strength.pack()
 
-        def run_check():
-            pwd = pw_entry.get()
+        output_strength = tk.Text(frame_strength, height=8, width=60, state="disabled", bg="#f7f7f7")
+        output_strength.pack(pady=(8, 8))
+
+        def run_strength_check():
+            pwd = pw_entry_strength.get()
             if not pwd:
                 self.log_message("[Password Checker] No password entered")
                 return
-
             try:
                 from modules.password_checker import PasswordChecker
                 checker = PasswordChecker()
@@ -284,34 +296,86 @@ class NestedRoundedBox:
                 lines.append(f"Score: {result.get('strength_score')}")
                 lines.append(f"Entropy: {result.get('entropy_bits')} bits")
 
-                lines.append("\nDetails:")
-                for d in result.get("details", []):
-                    lines.append(" " + str(d))
-
                 if result.get("recommendations"):
                     lines.append("\nRecommendations:")
-                    for r in result.get("recommendations", []):
+                    for r in result["recommendations"]:
                         lines.append(" - " + str(r))
 
                 out_text = "\n".join(lines)
+                output_strength.config(state="normal")
+                output_strength.delete("1.0", tk.END)
+                output_strength.insert(tk.END, out_text)
+                output_strength.config(state="disabled")
+                # Store for export
+                self.tool_logs["Password Checker"].append(out_text)
 
-                output.config(state="normal")
-                output.delete("1.0", tk.END)
-                output.insert(tk.END, out_text)
-                output.config(state="disabled")
 
                 for ln in out_text.splitlines():
                     self.log_message("[Password Checker] " + ln)
 
             except Exception as e:
                 self.log_message(f"[Password Checker] Error: {e}")
-                output.config(state="normal")
-                output.delete("1.0", tk.END)
-                output.insert(tk.END, f"Error: {e}")
-                output.config(state="disabled")
+                output_strength.config(state="normal")
+                output_strength.delete("1.0", tk.END)
+                output_strength.insert(tk.END, f"Error: {e}")
+                output_strength.config(state="disabled")
 
-        run_btn = tk.Button(win, text="Check Strength", command=run_check)
-        run_btn.pack(pady=(0, 10))
+        run_btn_strength = tk.Button(frame_strength, text="Check Strength", command=run_strength_check)
+        run_btn_strength.pack(pady=(0, 6))
+
+    # --- Block 2: HIBP Password Breach Checker ---
+        frame_hibp = tk.LabelFrame(win, text="HIBP Breach Checker", padx=10, pady=10)
+        frame_hibp.pack(fill="x", padx=10, pady=(10, 5))
+
+        tk.Label(frame_hibp, text="Enter password to check in HIBP:").pack(anchor="w")
+        pw_entry_hibp = tk.Entry(frame_hibp, show="*", width=36)
+        pw_entry_hibp.pack()
+
+        output_hibp = tk.Text(frame_hibp, height=6, width=60, state="disabled", bg="#f7f7f7")
+        output_hibp.pack(pady=(8, 8))
+
+        def run_hibp_check():
+            pwd = pw_entry_hibp.get()
+            if not pwd:
+                self.log_message("[HIBP Checker] No password entered")
+                return
+            output_hibp.config(state="normal")
+            output_hibp.delete("1.0", tk.END)
+            output_hibp.insert(tk.END, "Checking against HIBP...\n")
+            output_hibp.config(state="disabled")
+
+            def worker():
+                try:
+                    from email_breach_tool import check_pwned_password
+                    found, cnt, err = check_pwned_password(pwd)
+                    if err:
+                        msg = f"Error: {err}"
+                    else:
+                        msg = f"Password FOUND in breaches — seen {cnt} times!" if found else "Password NOT found in known breaches."
+                    win.after(0, lambda: self._update_password_output(output_hibp, msg, "[HIBP Checker]"))
+                except Exception as e:
+                    win.after(0, lambda: self._update_password_output(output_hibp, f"Error: {e}", "[HIBP Checker]"))
+
+            threading.Thread(target=worker, daemon=True).start()
+
+        # ✅ The missing button
+        run_btn_hibp = tk.Button(frame_hibp, text="Check Breach", command=run_hibp_check)
+        run_btn_hibp.pack(pady=(0, 6))
+
+
+
+    # helper for async updates
+    def _update_password_output(self, widget, msg, prefix):
+        widget.config(state="normal")
+        widget.delete("1.0", tk.END)
+        widget.insert(tk.END, msg)
+        widget.config(state="disabled")
+        for ln in msg.splitlines():
+            self.log_message(f"{prefix} {ln}")
+        # Store for export
+        self.tool_logs["Password Checker"].append(msg)
+    
+    
 
     # --- Network Scanner Popup (unchanged) ---
     def open_network_scanner(self):
@@ -357,6 +421,8 @@ class NestedRoundedBox:
             output.see(tk.END)
             output.config(state="disabled")
             self.log_message("[Network Scanner] " + line)
+            # Store for export
+            self.tool_logs["Network Scanner"].append(line)
 
         def start_scan():
             target = target_entry.get().strip()
@@ -482,6 +548,9 @@ class NestedRoundedBox:
             # also log to main logs (line by line)
             for ln in (line + "\n").splitlines():
                 self.log_message("[Port Scanner] " + ln)
+            # Store for export
+            self.tool_logs["Port Scanner"].append(line)
+
 
         def export_results():
             if cache["summary"] is None:
@@ -686,23 +755,19 @@ class NestedRoundedBox:
 
         start_btn.config(command=start_scan)
 
-    # --- Email Breach Detector popup (ADDED) ---
+    # --- Email Breach Detector popup (UPDATED CLEAN) ---
     def open_email_breach_detector(self):
         self.log_message("[UI] Opened Email Breach Detector window")
         win = tk.Toplevel(self.root)
         win.title("Email Breach Detector")
-        win.geometry("560x500")
-        win.resizable(False, False)
+        win.geometry("530x560")
+        win.resizable(True, True)   # ✅ allow resizing
         win.lift()
         win.focus_force()
 
         # Try to import backend functions from email_breach_tool (best-effort)
         try:
-            # backend module expected to provide these functions:
-            # run_email_breach(email, provider, force_refresh) -> (report_text, breaches, error)
-            # check_pwned_password(password) -> (found, count, error)
-            # get_api_key(provider) and set_api_key(provider, key)
-            from email_breach_tool import run_email_breach, check_pwned_password, get_api_key, set_api_key
+            from email_breach_tool import run_email_breach, get_api_key, set_api_key
             backend_available = True
         except Exception as exc:
             backend_available = False
@@ -722,19 +787,23 @@ class NestedRoundedBox:
         email_entry.grid(row=0, column=1, padx=6)
         email_entry.insert(0, "")
 
-        tk.Label(frame, text="Password (HIBP check):").grid(row=1, column=0, sticky="w", pady=(6,0))
-        pwd_entry = tk.Entry(frame, width=36, show="*")
-        pwd_entry.grid(row=1, column=1, padx=6, pady=(6,0))
-
-        tk.Label(frame, text="Provider:").grid(row=2, column=0, sticky="w", pady=(6,0))
+        # 🔹 Providers stacked vertically
+        tk.Label(frame, text="Provider:").grid(row=1, column=0, sticky="nw", pady=(6,0))
         provider_var = tk.StringVar(value="local")
-        providers = [("Local DB", "local"), ("LeakCheck API", "leakcheck"), ("BreachDirectory", "breachdirectory")]
+
+        providers = [
+            ("Local DB", "local"),
+            ("XposedOrNot (XON)", "xon"),
+            ("LeakCheck API", "leakcheck"),
+            ("BreachDirectory", "breachdirectory")
+        ]
         for i, (text, val) in enumerate(providers):
-            tk.Radiobutton(frame, text=text, variable=provider_var, value=val).grid(row=2, column=i+1, sticky="w")
+            tk.Radiobutton(frame, text=text, variable=provider_var, value=val)\
+              .grid(row=1+i, column=1, sticky="w", pady=(2,0))
 
         # Output Text
         output = tk.Text(win, height=18, width=70, state="disabled", bg="#f7f7f7")
-        output.pack(padx=10, pady=(8,4))
+        output.pack(padx=10, pady=(8,4), fill="both", expand=True)
         scrollbar = tk.Scrollbar(win, orient="vertical", command=output.yview)
         output.configure(yscrollcommand=scrollbar.set)
         scrollbar.place(in_=output, relx=1.0, rely=0, relheight=1.0, x=-2)
@@ -743,10 +812,9 @@ class NestedRoundedBox:
         btn_frame = tk.Frame(win)
         btn_frame.pack(pady=6)
         check_email_btn = tk.Button(btn_frame, text="Check Email")
-        check_pwd_btn = tk.Button(btn_frame, text="Check Password")
         export_btn = tk.Button(btn_frame, text="Export Result", state="disabled")
         key_btn = tk.Button(btn_frame, text="Manage API Keys")
-        for b in (check_email_btn, check_pwd_btn, export_btn, key_btn):
+        for b in (check_email_btn, export_btn, key_btn):
             b.pack(side="left", padx=4)
 
         cache = {"last_report": ""}
@@ -758,6 +826,9 @@ class NestedRoundedBox:
             output.config(state="disabled")
             for ln in text.splitlines():
                 self.log_message("[Email Breach] " + ln)
+            # Store for export
+            self.tool_logs["Email Breach Detector"].append(text)
+
 
         # Run email check (uses backend run_email_breach)
         def run_check_email():
@@ -784,27 +855,6 @@ class NestedRoundedBox:
                 except Exception as e:
                     win.after(0, lambda: append_output(f"Email check failed: {e}"))
 
-            threading.Thread(target=worker, daemon=True).start()
-
-        # Run password check (HIBP Pwned Passwords)
-        def run_check_pwd():
-            pwd = pwd_entry.get()
-            if not pwd:
-                append_output("Enter a password first.")
-                return
-            append_output("Checking password against HIBP Pwned Passwords (k-anonymity)...")
-            def worker():
-                try:
-                    found, cnt, err = check_pwned_password(pwd)
-                    if err:
-                        win.after(0, lambda: append_output(f"Password check error: {err}"))
-                    else:
-                        if found:
-                            win.after(0, lambda: append_output(f"Password FOUND in breaches — seen {cnt} times!"))
-                        else:
-                            win.after(0, lambda: append_output("Password NOT found in known breaches."))
-                except Exception as e:
-                    win.after(0, lambda: append_output(f"Password check failed: {e}"))
             threading.Thread(target=worker, daemon=True).start()
 
         # Export result
@@ -869,10 +919,11 @@ class NestedRoundedBox:
             tk.Button(btnf, text="Clear", command=clear_keys).pack(side="left", padx=8)
             tk.Button(btnf, text="Close", command=k_win.destroy).pack(side="left", padx=8)
 
+        # ✅ Bind buttons
         check_email_btn.config(command=run_check_email)
-        check_pwd_btn.config(command=run_check_pwd)
         export_btn.config(command=run_export)
         key_btn.config(command=run_manage_keys)
+
 
     def on_button_click(self, name):
         self.log_message(f"Clicked: {name}")
@@ -888,8 +939,37 @@ class NestedRoundedBox:
             self.open_email_breach_detector()
         elif name == "more_button":
             self.log_message("More button clicked!")
+        
         elif name == "export":
             self.log_message("Export clicked!")
+            try:
+                # Ask user where to save file
+                fpath = filedialog.asksaveasfilename(
+                    defaultextension=".txt",
+                    filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")]
+                )
+                if not fpath:
+                    return  # user cancelled
+        
+                # Write structured tool results
+                with open(fpath, "w", encoding="utf-8") as f:
+                    f.write("=== Multinedor Export ===\n\n\n\n")
+                    for tool, logs in self.tool_logs.items():
+                        f.write(f"## {tool} ##\n")
+                        f.write("-" * (len(tool) + 6) + "\n")
+                        if logs:
+                            for entry in logs:
+                                f.write(entry.strip() + "\n")
+                        else:
+                            f.write("(No results yet)\n")
+                        f.write("\n\n\n\n")
+        
+                self.log_message(f"[Export] Structured results saved to {fpath}")
+            except Exception as e:
+                self.log_message(f"[Export] Failed: {e}")
+
+
+        
         elif name == "help":
             self.log_message("Help clicked!")
         elif name == "about":
